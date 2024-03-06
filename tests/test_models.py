@@ -140,26 +140,27 @@ class TestProductModel(unittest.TestCase):
         product = ProductFactory()
         product.id = None
         product.create()
-        product.id = None
+        
         self.assertIsNone(product.id)
         # Change it an save it
         product.description = "testing"
         original_id = product.id
-        product.update()
-        self.assertEqual(product.id, original_id)
-        self.assertRaises(DataValidationError)
+        product.id = None
+        
+        with self.assertRaises(DataValidationError):
+            product.update()
+            
 
 
     def test_wrong_boolean(self):
         """It should Update a Product with None"""
         products = Product.all()
         self.assertEqual(products, [])
-        self.assertIsNone(product.id)
         product = ProductFactory()
         product.create()
         product.available = 2
-        product.update()
-        self.assertRaises(DataValidationError)
+        with self.assertRaises(DataValidationError):
+            product.update()
 
     
     def test_delete_a_product(self):
