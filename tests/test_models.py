@@ -166,7 +166,7 @@ class TestProductModel(unittest.TestCase):
             product.deserialize(pdict)
         
     def test_exceptions2(self):
-        """It should Update a Product with wrong price value"""
+        """deserialize Product with wrong price value"""
         products = Product.all()
         self.assertEqual(products, [])
         product = ProductFactory()
@@ -178,7 +178,7 @@ class TestProductModel(unittest.TestCase):
             product.deserialize(pdict)   
 
     def test_exceptions3(self):
-        """It should Update a Product with Invalid attribute """
+        """ deserialize Product with Invalid attribute """
         products = Product.all()
         self.assertEqual(products, [])
         product = ProductFactory()
@@ -196,10 +196,18 @@ class TestProductModel(unittest.TestCase):
         product.create()
         actual_id=product.id
         pdict=product.serialize()
-        pdict["id"]=None
+        pdict["category"]=None
         with self.assertRaises(DataValidationError):
             product.deserialize(pdict)  
     
+    def test_find_by_price(self):
+        """It should Find a Product by price"""
+        product = ProductFactory()
+        product.create()
+        actual_id=product.id
+        actual_pr=product.price
+        lproducts=product.find_by_price(actual_pr)
+ 
     def test_delete_a_product(self):
         """It should Delete a Product"""
         product = ProductFactory()
