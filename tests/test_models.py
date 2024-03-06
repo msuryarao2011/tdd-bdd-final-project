@@ -173,7 +173,7 @@ class TestProductModel(unittest.TestCase):
         product.create()
        
         pdict=product.serialize()
-        pdict["price"]=null
+        pdict["price"]=None
         with self.assertRaises(DataValidationError):
             product.deserialize(pdict)   
 
@@ -186,7 +186,7 @@ class TestProductModel(unittest.TestCase):
        
         listdummy=list()
         with self.assertRaises(DataValidationError):
-            product.deserialize(pdict)      
+            product.deserialize(listdummy)      
             
     def test_exceptions4(self):
         """It should Update a Product with Key Error """
@@ -196,7 +196,7 @@ class TestProductModel(unittest.TestCase):
         product.create()
         actual_id=product.id
         pdict=product.serialize()
-        pdict["id"]=null
+        pdict["id"]=None
         with self.assertRaises(DataValidationError):
             product.deserialize(pdict)  
     
