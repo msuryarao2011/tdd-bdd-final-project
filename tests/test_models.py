@@ -154,12 +154,10 @@ class TestProductModel(unittest.TestCase):
         products = Product.all()
         self.assertEqual(products, [])
         self.assertIsNone(product.id)
-        # Create 5 Products
-        for _ in range(2):
-            product = ProductFactory()
-            product.create()
-            product.available = 2
-            product.update()
+        product = ProductFactory()
+        product.create()
+        product.available = 2
+        product.update()
 
     
     def test_delete_a_product(self):
