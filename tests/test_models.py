@@ -147,7 +147,8 @@ class TestProductModel(unittest.TestCase):
         original_id = product.id
         product.id = None
         
-        self.assertRaises(DataValidationError,product.update())
+        with self.assertRaises(DataValidationError):
+            product.update()
             
             
 
@@ -159,7 +160,8 @@ class TestProductModel(unittest.TestCase):
         product = ProductFactory()
         product.create()
         product.available = 2
-        self.assertRaises(DataValidationError,product.update())
+        with self.assertRaises(DataValidationError):
+            product.update()
 
     
     def test_delete_a_product(self):
