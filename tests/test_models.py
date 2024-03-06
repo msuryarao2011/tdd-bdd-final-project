@@ -134,6 +134,39 @@ class TestProductModel(unittest.TestCase):
         self.assertEqual(len(products), 1)
         self.assertEqual(products[0].id, original_id)
         self.assertEqual(products[0].description, "testing")
+
+    def test_emptyupdate_a_product(self):
+        """It should Update a Product with None"""
+        product = ProductFactory()
+        product.id = None
+        product.create()
+        product.id = None
+        self.assertIsNone(product.id)
+        # Change it an save it
+        product.description = "testing"
+        original_id = product.id
+        product.update()
+        self.assertEqual(product.id, original_id)
+        self.assertRaises("DataValidationError")
+
+    def test_wrong_boolean(self):
+        """It should Update a Product with None"""
+        products = Product.all()
+        self.assertEqual(products, [])
+        self.assertIsNone(product.id)
+        # Create 5 Products
+        for _ in range(2):
+            product = ProductFactory()
+            product.create()
+            product.available = 2
+            product.update()
+            self.assertRaises("DataValidationError")
+            
+        # See if we get back 5 products
+        products = Product.all()
+        self.assertEqual(len(products), 2)
+        
+    
     def test_delete_a_product(self):
         """It should Delete a Product"""
         product = ProductFactory()
