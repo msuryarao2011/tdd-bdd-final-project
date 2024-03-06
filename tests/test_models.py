@@ -147,6 +147,7 @@ class TestProductModel(unittest.TestCase):
         original_id = product.id
         product.update()
         self.assertEqual(product.id, original_id)
+        self.assertRaises(DataValidationError)
 
 
     def test_wrong_boolean(self):
@@ -158,6 +159,7 @@ class TestProductModel(unittest.TestCase):
         product.create()
         product.available = 2
         product.update()
+        self.assertRaises(DataValidationError)
 
     
     def test_delete_a_product(self):
