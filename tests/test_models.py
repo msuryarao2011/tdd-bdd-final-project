@@ -153,7 +153,7 @@ class TestProductModel(unittest.TestCase):
             
 
 
-    def test_wrong_boolean(self):
+    def test_exceptions1(self):
         """It should Update a Product with wrong boolean"""
         products = Product.all()
         self.assertEqual(products, [])
@@ -164,9 +164,42 @@ class TestProductModel(unittest.TestCase):
         pdict["available"]=2
         with self.assertRaises(DataValidationError):
             product.deserialize(pdict)
-            
-            
+        
+    def test_exceptions2(self):
+        """It should Update a Product with wrong price value"""
+        products = Product.all()
+        self.assertEqual(products, [])
+        product = ProductFactory()
+        product.create()
+       
+        pdict=product.serialize()
+        pdict["price"]="dummy"
+        with self.assertRaises(DataValidationError):
+            product.deserialize(pdict)   
 
+     def test_exceptions3(self):
+        """It should Update a Product with Invalid attribute """
+        products = Product.all()
+        self.assertEqual(products, [])
+        product = ProductFactory()
+        product.create()
+       
+        pdict=product.serialize()
+        pdict["invalid"]="dummy"
+        with self.assertRaises(DataValidationError):
+            product.deserialize(pdict)      
+            
+     def test_exceptions4(self):
+        """It should Update a Product with Key Error """
+        products = Product.all()
+        self.assertEqual(products, [])
+        product = ProductFactory()
+        product.create()
+        actual_id=product.id
+        pdict=product.serialize()
+        pdict["id"]=actual_id
+        with self.assertRaises(DataValidationError):
+            product.deserialize(pdict)  
     
     def test_delete_a_product(self):
         """It should Delete a Product"""
