@@ -27,7 +27,7 @@ import os
 import logging
 import unittest
 from decimal import Decimal
-from service.models import Product, Category, db
+from service.models import Product, Category, db,DataValidationError
 from service import app
 from tests.factories import ProductFactory
 
@@ -153,7 +153,7 @@ class TestProductModel(unittest.TestCase):
 
 
     def test_wrong_boolean(self):
-        """It should Update a Product with None"""
+        """It should Update a Product with wrong boolean"""
         products = Product.all()
         self.assertEqual(products, [])
         product = ProductFactory()
