@@ -173,7 +173,7 @@ class TestProductModel(unittest.TestCase):
         product.create()
        
         pdict=product.serialize()
-        pdict["price"]="dummy"
+        pdict["price"]=null
         with self.assertRaises(DataValidationError):
             product.deserialize(pdict)   
 
@@ -184,8 +184,7 @@ class TestProductModel(unittest.TestCase):
         product = ProductFactory()
         product.create()
        
-        pdict=product.serialize()
-        pdict["invalid"]="dummy"
+        listdummy=list()
         with self.assertRaises(DataValidationError):
             product.deserialize(pdict)      
             
@@ -197,7 +196,7 @@ class TestProductModel(unittest.TestCase):
         product.create()
         actual_id=product.id
         pdict=product.serialize()
-        pdict["id"]=actual_id
+        pdict["id"]=null
         with self.assertRaises(DataValidationError):
             product.deserialize(pdict)  
     
