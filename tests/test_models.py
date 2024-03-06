@@ -140,14 +140,14 @@ class TestProductModel(unittest.TestCase):
         product = ProductFactory()
         product.id = None
         product.create()
-        
+        product.id = None
         self.assertIsNone(product.id)
         # Change it an save it
         product.description = "testing"
         original_id = product.id
         product.id = None
         
-        with self.assertRaises(DataValidationError):
+        with self.assertRaises("DataValidationError"):
             product.update()
             
 
@@ -159,7 +159,7 @@ class TestProductModel(unittest.TestCase):
         product = ProductFactory()
         product.create()
         product.available = 2
-        with self.assertRaises(DataValidationError):
+        with self.assertRaises("DataValidationError"):
             product.update()
 
     
