@@ -159,9 +159,13 @@ class TestProductModel(unittest.TestCase):
         self.assertEqual(products, [])
         product = ProductFactory()
         product.create()
-        product.available = 2
+       
+        pdict=product.serialize()
+        pdict["available"]=2
         with self.assertRaises(DataValidationError):
-            product.update()
+            product.deserialize(pdict)
+            
+            
 
     
     def test_delete_a_product(self):
